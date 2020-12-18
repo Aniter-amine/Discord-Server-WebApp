@@ -15,13 +15,6 @@
     <div class="row">
             <a href="https://discord.com/users/{{ project.author_id }}"><img src="https://cdn.discordapp.com/avatars/{{ project.author_id }}/{{ project.author_avatar }}" alt="" class="rounded-circle" height="60" width="60"></a>
         <small class="col-8">{{ project.author }} • {{ project.project_views }} views • {{ project.post_date }}</small>
-        <form action="{% url 'like_project' project.pk %}" method="POST">
-            {% csrf_token %}
-            <button name="project_id" value="{{ project.id }}">
-                Like
-            </button>
-            </button>
-        </form>
         {% if user.discord_tag %}
 
         <div class="dropdown col-3">
