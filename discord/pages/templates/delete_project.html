@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dz Coders - Delete Project {{ project.pk }}{% endblock %}
+
+{% block content %}
+
+{% if user.discord_tag == project.author %}
+
+  <div class="container">
+
+    <h1>Delete Project</h1>
+    <br>
+    <h3>Delete Project {{ project.pk }} !!</h3>
+    <br>
+    <div class="row border p-4">
+
+      <div class="form-group">
+
+          <form method="post">
+            {% csrf_token %}
+            <strong>Are you Sure!</strong>
+            <small>This Will Delete Your Project Difenetly!</small>
+            <button class="btn btn-outline-danger ml-3">Delete</button>
+          </form>
+
+        </div>
+
+        <a href="{% url 'index' %}">
+          <button class="btn btn-outline-secondary ml-3">Cancel</button>
+        </a>
+
+    </div>
+
+  </div>
+
+
+{% else %}
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>No Access Error</strong> No, You D'ont Have Access To This Page! Because You Need To Login?
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dz Coders - Add Project{% endblock %}
+
+{% block content %}
+
+{% if user.discord_tag %}
+
+    <div class="container">
+
+        <h1>Add Post:</h1>
+        <br>
+
+        <div class="row">
+        <div class="form-group">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button class="btn btn-outline-success">Post</button>
+            <a href="{% url 'project' %}" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+        </div>
+        </div>
+        
+    </div>
+    
+{% endif %}
+
+{% endblock %}

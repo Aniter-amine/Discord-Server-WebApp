@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block title %}Dz Coders - Project{% endblock %}
+
+{% block content %}
+
+<div class="row">
+{% for project in object_list %}
+        <div class="card col-3 m-5" style="width: 18rem;">
+            <div class="card-body">
+            {% if project.header_image %}
+                <img src="{{ project.header_image.url }}" class="card-img-top border p-2" alt="..." height="300" width="300">
+                <hr>
+            {% endif %}
+
+            <h5 class="card-title col-8 p-1">{{ project.title|slice:":30" }}<a href="{% url 'project_detail' project.id %}">...</a></h5>
+            <hr>
+            <div class="row">
+                <a href="https://discord.com/users/{{ project.author_id }}"><img src="https://cdn.discordapp.com/avatars/{{ project.author_id }}/{{ project.author_avatar }}" alt="" class="rounded-circle" height="30" width="30"></a>
+                <small class="col-8 p-2">{{ project.author }} • {{ project.project_views }} views • {{ project.post_date }}</small>
+                {% if user.discord_tag %}
+                    <div class="dropdown col-3">
+                        <a role="button" id="dropleftMenuLink" class="col-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                            </svg>
+        
+                        </a>
+        
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        
+                        {% if user.discord_tag == project.author %}
+        
+                        <a class="dropdown-item" type="button" href="{% url 'update_project' project.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                            </svg> Edit
+                        </a>
+                        
+        
+                        <a class="dropdown-item" type="button" href="{% url 'delete_project' project.id %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg> Delete
+                        </a>
+        
+        
+                        {% endif %}
+        
+                        <a class="dropdown-item" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-plus" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5V6H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V7H6a.5.5 0 0 1 0-1h1.5V4.5A.5.5 0 0 1 8 4z"/>
+                            </svg> Save
+                        </a>
+
+                        
+                        <a class="dropdown-item" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
+                              </svg> Report
+                        </a>
+                        
+                        </div>
+                        
+                    </div>
+                {% endif %}
+                
+            </div>
+                <hr>
+            <p class="card-text border p-2">{{ project.body|slice:":200" }} <a href="{% url 'project_detail' project.id %}">See More...</a></p> 
+
+
+    
+
+
+
+            {% if project.website_link %}
+                <a href="{{ project.website_link }}" class="btn btn-primary pl-4 pr-4">
+                    <i class="fas fa-window-maximize"></i>
+                </a>
+            {% endif %}
+            {% if project.repository_link %}
+                <a href="{{ project.repository_link }}" class="btn btn-secondary pl-4 pr-4">
+                <i class="fab fa-github"></i>
+                </a>
+            {% endif %}
+            </div>
+        </div>
+
+{% endfor %}
+</div>
+{% endblock %}

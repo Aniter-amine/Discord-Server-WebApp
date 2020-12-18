@@ -1,0 +1,41 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        {% block link %} {% endblock %}
+        <title>
+            {% block title %}Dz Coders - Logout{% endblock %}
+        </title>
+    </head>
+  <body>
+      {% if user.discord_tag %}
+      <script>
+          function red() {
+            window.location.replace("{% url 'index' %}");
+          }
+      </script>
+        <form method="post" action="{% url 'logout' %}" class="mt-5">
+            {% csrf_token %}
+            <div class="text-center mb-4">
+                <a href="/">
+                    <img class="mb-4 rounded" src="https://i.pinimg.com/originals/bc/cd/d4/bccdd46d76e7f565448ba54c935b20a9.jpg" alt="" width="300" height="256">
+                </a>
+                <h1 class="h1 mb-3 font-weight-normal text-black">Signing out</h1>
+                <p class="font-weight-normal text-black">Are you sure you want to sign out?</p>
+                <p class="font-weight-light text-black text-muted"><a href="{% url 'index' %}">Press HERE To Return.</a></p>
+            </div>
+            <div class="text-center">
+                    <button type="submit" onclick="red()" class="btn btn-light">
+                        Sign out
+                    </button>
+            </div>
+        </form>
+        {% endif %}
+  </body>
+</html>
